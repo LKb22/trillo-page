@@ -197,3 +197,115 @@
   text-align: center;
   padding: 2.5rem;
 }
+
+
+// GALLERY
+.gallery {
+  display: flex;
+
+  &__photo {
+    width: 100%; // Always give images a width or height
+    display: block // To avoid a whitespace issue under the image
+  }
+}
+
+// HOTEL OVERVIEW
+.overview {
+  display: flex;
+  align-items: center; // Align items for cross axis
+  border-bottom: var(--border-bottom);
+
+  &__heading {
+    font-size: 2.25rem;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 1.5rem 3rem;
+  }
+
+  &__stars {
+    margin-right: auto; // Push stars to the left
+    display: flex; // Use flexbox to remove default whitespace under svg elements
+  }
+
+  &__icon-star,
+  &__icon-location {
+    width: 1.75rem;
+    height: 1.75rem;
+    fill: var(--color-primary);
+  }
+
+  &__location {
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+  }
+
+  &__icon-location {
+    margin-right: .5rem;
+  }
+
+  &__rating {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    margin-left: 3rem;
+    align-self: stretch; // Override align-items: center to stretch only this container to the full height of its parent container
+    padding: 0 2.25rem;
+    // Align the text inside the rating container
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__rating-average {
+    font-size: 2.25rem;
+    font-weight: 300;
+  }
+
+  &__rating-count {
+    font-size: .8rem;
+    text-transform: uppercase;
+  }
+}
+
+
+// BUTTON
+.btn-inline {
+  border: none;
+  color: var(--color-primary);
+  font-size: inherit;
+  border-bottom: 1px solid currentColor; // Use currentColor to inherit color from parent, as well as the color on hover
+  padding-bottom: 2px; // Padding between text and border-bottom (underline)
+  display: inline-block; // Make the button inline
+  background-color: transparent; // Remove background color
+  cursor: pointer;
+  transition: all .2s; // Transition for hover effect
+
+  &:hover {
+    color: var(--color-grey-dark-1)
+  }
+
+  &:focus {
+    outline: none;
+    animation: pulsate 1s infinite; // Use animation for pulsate effect, 1s duration, infinite loop
+  }
+}
+
+// PULSE ANIMATION -  Normal, scale up with box shadow, then back to normal
+@keyframes pulsate {
+  0% {
+    transform: scale(1);
+    box-shadow: none;
+  }
+
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 1rem 4rem rgba(var(--color-black), .25);
+  }
+
+  100% {
+    transform: scale(1);
+    box-shadow: none;
+  }
+}
