@@ -21,6 +21,9 @@
 }
 
 .sidebar {
+  display: flex;
+  flex-direction: column; // Main axis changed from row/left-right to column/top-bottom
+  justify-content: space-between; // justify-content for main axis
   background-color: var(--color-grey-dark-1);
   flex: 0 0 18%; // Flex grow shrink width. 0 0 18% means no grow, no shrink, 18% width
 }
@@ -28,4 +31,5 @@
 .hotel-view {
   background-color: var(--color-white);
   flex: 1; // Grow as much as possible to take up remaining space
+  height: 100vh;
 }

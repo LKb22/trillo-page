@@ -120,3 +120,80 @@
     margin-right: 1rem;
   }
 }
+
+// SIDE NAVIGATION
+.side-nav {
+  font-size: 1.4rem;
+  list-style: none; // remove bullets
+  margin-top: 3.5rem;
+
+  &__item {
+    position: relative; // Required for before pseudo element positioning
+
+    &:not(:last-child) { // Select all items except the last one
+      margin-bottom: 1rem;
+    }
+  }
+
+  // Create a before pseudo element to create a line on the left side of the list item
+  &__item::before {
+    content: ""; // Set content to empty string to create pseudo element
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%; // Exactly same hieght as list item (parent)
+    width: 3px;
+    background-color: var(--color-primary);
+    transform: scaleY(0); // Initially scale to 0 to hide. Use scaleY to scale vertically
+    transform-origin: center; // Scale from center (this is the default)
+    // Transition for animation effects
+    transition: transform .2s, // First transform for vertical line
+                width .4s cubic-bezier(1,0,0,1) .2s; // Second transform for 100% width of line. Use cubic-bezier and delay the width transition by .2s
+                background-color: .1s // Third transform for background color change on click
+
+  }
+
+  // On hover, scale the pseudo element to show it
+  &__item:hover:before,
+  // Style the --active to show the background color and line with before pseudo element
+  &__item--active:before {
+    transform: scaleY(1); // Scale the pseudo element on hover using scaleY to make it grow vertically
+
+    width: 100%; // Make the line full width to match the width of the list item
+  }
+
+  // Use active::before to style the button when it's being clicked
+  &__item:active::before {
+    background-color: var(--color-primary-light);
+  }
+
+  &__link:link,
+  &__link:visited {
+    color: var(--color-grey-light-1);
+    text-decoration: none; // remove underline
+    text-transform: uppercase;
+    display: block; // Make link full width
+    padding: 1.5rem 3rem;
+    position: relative; // Required for z-index to work
+    z-index: 10; // Set z-index to 10 to make sure it's on top of the pseudo element
+
+    // Align Icon and title
+    display: flex;
+    align-items: center;
+  }
+
+  &__icon {
+    width: 1.75rem;
+    height: 1.75rem;
+    margin-right: 2rem;
+    fill: currentColor; // Use currentColor to inherit color from parent
+  }
+}
+
+// LEGAL TEXT
+.legal {
+  font-size: 1.2rem;
+  color: var(--color-grey-light-4);
+  text-align: center;
+  padding: 2.5rem;
+}
