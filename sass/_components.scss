@@ -454,3 +454,68 @@
     z-index: 1; // Small z-index to make sure it's behind the text
   }
 }
+
+
+// CTA
+.cta {
+  padding: 3.5rem 0;
+  text-align: center;
+
+  &__book-now {
+    font-size: 2rem;
+    font-weight: 300;
+    text-transform: uppercase;
+    margin-bottom: 2.5rem;
+  }
+}
+
+// CTA BUTTON
+.btn {
+  font-size: 1.5rem;
+  font-weight: 300;
+  text-transform: uppercase;
+  border-radius: 100px;
+  border: none;
+  background-image: linear-gradient(to right, var(--color-primary-light), var(--color-primary-dark));
+  color: var(--color-white);
+  position: relative; // for position: absolute on invisible
+  overflow: hidden; // Hide the invisible button
+  cursor: pointer;
+
+  // Use select all child elements to keep code DRY (for both visible and invisible buttons)
+  & > * {
+    display: inline-block; // to use padding and margin
+    height: 100%;
+    transition: all .2s; // Transition for the button hover effect
+  }
+
+  &__visible {
+    padding: 2rem 7.5rem; // Padding ultimately determines the size of the button
+  }
+
+  &__invisible {
+    position: absolute;
+    padding: 2rem 0; // Use 0 padding left and right to center the button
+    left: 0;
+    top: -100%; // Shift the invisible button up by 100% of its height to put it on top of the visible button
+    width: 100%;
+  }
+
+  // On hover, change the linear gradient from right to left (reverse)
+  &:hover {
+    background-image: linear-gradient(to left, var(--color-primary-light), var(--color-primary-dark));
+  }
+  // On hover, move the visible button up
+  &:hover &__visible {
+    transform: translateY(100%); // Move the visible button up by 100% of its height to hide it on hover
+  }
+
+  &:hover &__invisible {
+     top: 0; // Move the invisible button back to 0 to show it on hover
+  }
+
+  &:focus {
+    outline: none;
+    animation: pulsate 1s infinite; // Use animation for pulse effect, 1s duration, infinite loop
+  }
+}
