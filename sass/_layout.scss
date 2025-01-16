@@ -7,8 +7,12 @@
 }
 
 .header {
+  font-size: 1.4rem;
+  display: flex;
+  justify-content: space-between; // Justify content for main exis
+  align-items: center; // Align items for cross axis
   height: 7rem;
-  background-color: #fff;
+  background-color: var(--color-white);
   border-bottom: var(--color-grey-light-2);
 }
 
@@ -22,6 +26,6 @@
 }
 
 .hotel-view {
-  background-color: #fff;
+  background-color: var(--color-white);
   flex: 1; // Grow as much as possible to take up remaining space
 }
