@@ -198,7 +198,6 @@
   padding: 2.5rem;
 }
 
-
 // GALLERY
 .gallery {
   display: flex;
@@ -269,7 +268,6 @@
   }
 }
 
-
 // BUTTON
 .btn-inline {
   border: none;
@@ -287,16 +285,13 @@
   }
   &:hover {
     color: var(--color-grey-dark-1);
+    outline: none;
+    animation: pulsate 1s infinite; // Use animation for pulsate effect, 1s duration, infinite loop
 
     span {
       margin-left: 8px; // Increase margin to move arrow further
       transform: margin-left .2s; // Transition for arrow movement
     }
-  }
-
-  &:focus {
-    outline: none;
-    animation: pulsate 1s infinite; // Use animation for pulsate effect, 1s duration, infinite loop
   }
 }
 
@@ -455,7 +450,6 @@
   }
 }
 
-
 // CTA
 .cta {
   padding: 3.5rem 0;
@@ -504,7 +498,10 @@
   // On hover, change the linear gradient from right to left (reverse)
   &:hover {
     background-image: linear-gradient(to left, var(--color-primary-light), var(--color-primary-dark));
+    outline: none;
+    animation: pulsate 1s infinite; // Use animation for pulsate effect, 1s duration, infinite loop
   }
+
   // On hover, move the visible button up
   &:hover &__visible {
     transform: translateY(100%); // Move the visible button up by 100% of its height to hide it on hover
