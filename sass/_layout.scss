@@ -1,8 +1,14 @@
+@use 'base' as base;
+
 .container {
-  max-width: 90vw;
-  margin: 5rem auto;
+  margin: 5rem;
   background-color: var(--color-grey-light-1);
   box-shadow: var(--shadow-dark);
+
+  // Remove the margin from the container at the largest breakpoint
+  @media only screen and (max-width: base.$bp-largest) {
+    margin: 0;
+  }
 }
 
 .header {
@@ -13,10 +19,21 @@
   height: 7rem;
   background-color: var(--color-white);
   border-bottom: var(--border);
+
+  @media only screen and (max-width: base.$bp-phone-smallest) {
+    flex-wrap: wrap; // Set flex wrap to allow the search bar to wrap to the next line
+    align-content: space-around; // Add space around to space the two rows of content
+    height: 10rem; // Increase height to 10rem to accommodate the second row
+  }
 }
 
 .content {
   display: flex;
+
+  // Content conatins the sidebar and hotel view in a row. Change to column to put sidebar along the top and hotel view below
+  @media only screen and (max-width: base.$bp-medium) {
+    flex-direction: column;
+  }
 }
 
 .sidebar {
@@ -38,6 +55,12 @@
   padding: 4.5rem;
   background-color: var(--color-grey-light-1);
   border-bottom: var(--border);
+
+  // Decrease padding and change flex direction to column to put description above user reviews at medium screen size
+  @media only screen and (max-width: base.$bp-medium) {
+    padding: 3rem;
+    flex-direction: column;
+  }
 }
 
 .description {
@@ -46,6 +69,12 @@
   padding: 3rem;
   flex: 0 0 60%; // No grow, no shrink, 60% width
   margin-right: 4.5rem;
+
+  // Decrease padding and margin and change margin from right side to bottom for flex-direction: column at medium screen size
+  @media only screen and (max-width: base.$bp-medium) {
+    padding: 2rem;
+    margin: 0 0 3rem 0;
+  }
 }
 
 .user-reviews {
@@ -53,4 +82,17 @@
   display: flex;
   flex-direction: column;
   align-items: center; // Leaving default stretch would stretch button across the full width of the container
+
+  // Change flex direction to row to put user reviews in a row / next to each other at medium screen size
+  @media only screen and (max-width: base.$bp-medium) {
+    flex-direction: row;
+    flex-wrap: wrap; // Add wrap to allow the button to wrap to the next line
+    align-items: stretch; // Use stretch to make the reviews respond to and keep each other's height when they are in direction row
+  }
+
+  // Change flex direction back to column to put user reviews below each other at small screen size
+  @media only screen and (max-width: base.$bp-small) {
+    flex-direction: column;
+    align-items: center; // Set back to center
+  }
 }

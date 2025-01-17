@@ -1,3 +1,5 @@
+@use 'base' as base;
+
 // LOGO
 .logo {
   height: 3.25rem;
@@ -12,6 +14,12 @@
   display: flex;
   align-items: center; // Align items for cross axis
   justify-content: center; // Justify content for main axis
+
+  @media only screen and (max-width: base.$bp-phone-smallest) {
+    order: 1; // Change the order of the search box to 1 to move it to the end of the header
+    flex: 0 0 100%; // Set width to 100% to take up full width at smallest screen size and wrap to the next line, no grow, no shrink
+    background-color: var(--color-grey-light-2); // Add the same background color as the input to stretch the search box to the full width
+  }
 
   &__input {
     // Input does not inherit automatically. Use inherit to inherit from parent (header in this case)
@@ -127,11 +135,27 @@
   list-style: none; // remove bullets
   margin-top: 3.5rem;
 
+  // Use flexbox to align nav items in a row across the top of the container at medium screen size
+  @media only screen and (max-width: base.$bp-medium) {
+    display: flex;
+    margin-top: 0; // Get rid of the top margin
+  }
+
   &__item {
     position: relative; // Required for before pseudo element positioning
 
     &:not(:last-child) { // Select all items except the last one
       margin-bottom: 1rem;
+
+      // Remove the margin bottom at medium screen size
+      @media only screen and (max-width: base.$bp-medium) {
+        margin-bottom: 0;
+      }
+    }
+
+    // Set flex to 1 to allow sidenav items to grow as much as possible (evenly) across the container at medium screen size
+    @media only screen and (max-width: base.$bp-medium) {
+      flex: 1;
     }
   }
 
@@ -158,7 +182,6 @@
   // Style the --active to show the background color and line with before pseudo element
   &__item--active:before {
     transform: scaleY(1); // Scale the pseudo element on hover using scaleY to make it grow vertically
-
     width: 100%; // Make the line full width to match the width of the list item
   }
 
@@ -180,6 +203,18 @@
     // Align Icon and title
     display: flex;
     align-items: center;
+
+    // Inside the link, center the links in the nav bar with flexbox and padding at medium screen size
+    @media only screen and (max-width: base.$bp-medium) {
+      justify-content: center;
+      padding: 2rem
+    }
+
+    // At phone screen size, change to direction column to position the icon above the text in each nav item
+    @media only screen and (max-width: base.$bp-phone) {
+      flex-direction: column;
+      padding: 1.5rem .5rem; // Decrease padding to make the nav items smaller
+    }
   }
 
   &__icon {
@@ -187,6 +222,13 @@
     height: 1.75rem;
     margin-right: 2rem;
     fill: currentColor; // Use currentColor to inherit color from parent
+
+    // At phone screen size
+    @media only screen and (max-width: base.$bp-phone) {
+      margin: 0 0 .7rem 0; // Remove margin right and add margin bottom to space out the icon and text
+      width: 1.5rem; // Make the icon smaller
+      height: 1.5rem;
+    }
   }
 }
 
@@ -196,6 +238,11 @@
   color: var(--color-grey-light-4);
   text-align: center;
   padding: 2.5rem;
+
+  // Remove the legal text at medium screen size
+  @media only screen and (max-width: base.$bp-medium) {
+    display: none;
+  }
 }
 
 // GALLERY
@@ -214,12 +261,23 @@
   align-items: center; // Align items for cross axis
   border-bottom: var(--border);
 
+  @media only screen and (max-width: base.$bp-mobile-lg) {
+    flex-wrap: wrap;
+  }
+
   &__heading {
     font-size: 2.25rem;
     font-weight: 300;
     text-transform: uppercase;
     letter-spacing: 1px;
     padding: 1.5rem 3rem;
+    white-space: nowrap; // Prevent header from wrapping to the next line
+
+    // At phone screen size
+    @media only screen and (max-width: base.$bp-phone) {
+      font-size: 1.8rem; // Decrease font size
+      padding: 1.25rem; // Decrease padding to shrink the whole overview section
+    }
   }
 
   &__stars {
@@ -238,6 +296,12 @@
     font-size: 1.2rem;
     display: flex;
     align-items: center;
+
+    @media only screen and (max-width: base.$bp-mobile-lg) {
+      order: 1;
+      flex: 1 0 calc(100% - 1.25rem);
+      padding: 0 0 1.25rem 1.25rem;
+    }
   }
 
   &__icon-location {
@@ -255,17 +319,33 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
+    // At phone screen size
+    @media only screen and (max-width: base.$bp-phone) {
+      margin-left: 2rem;
+      padding: 0 1.5rem;
+    }
   }
 
   &__rating-average {
     font-size: 2.25rem;
     font-weight: 300;
+
+    // At phone screen size
+    @media only screen and (max-width: base.$bp-phone) {
+      font-size: 1.8rem;
+    }
   }
 
   &__rating-count {
     font-size: .8rem;
     text-transform: uppercase;
-  }
+
+    // At phone screen size
+    @media only screen and (max-width: base.$bp-phone) {
+      font-size: .7rem;
+    }
+}
 }
 
 // BUTTON
@@ -279,6 +359,22 @@
   background-color: transparent; // Remove background color
   cursor: pointer;
   transition: all .2s; // Transition for hover effect
+
+  // Use a wrapper modifier on the button to make it full width and wrap to the next line at medium screen size
+  @media only screen and (max-width: base.$bp-medium) {
+    &--wrapper {
+      flex-basis: 100%; // Set flex-basis to 100% to make the button full width and wrap to the next line
+      max-width: max-content; // Limit the width to the content width to avoid stretching the button
+      margin-left: auto; // Push the button to the right for styling
+    }
+  }
+
+  // Remove margin left at small screen size to re-center the button
+  @media only screen and (max-width: base.$bp-small) {
+    &--wrapper {
+      margin-left: 0; // Re-center the button
+    }
+  }
 
   & span { // Span for arrow next to show all button
     margin-left: 3px;
@@ -331,9 +427,24 @@
   display: flex;
   flex-wrap: wrap; // Wrap the list items to allow elements to wrap to the next line
 
+  // Set flex to 55% on odds and 45% on even to allow for padding between the two columns without effecting 100% total width
   &__item {
-    flex: 0 0 50%; // Set flex to 50% to allow 2 items per row
-    margin-bottom: .7rem;
+    flex: 0 0 55%;
+    margin-bottom: .7rem; // Add margin bottom to space out the list items
+
+    &:nth-child(even) {
+      flex: 0 0 45%;
+
+    }
+
+    // Set flex to 100% for all items in a single column at small screen size
+    @media only screen and (max-width: base.$bp-mobile-lg) {
+      flex: 0 0 100%;
+
+      &:nth-child(even) {
+        flex: 0 0 100%; // Ensure even items are also reset to 100% width
+      }
+    }
   }
 
   &__item::before {
@@ -368,9 +479,11 @@
 
   &__count {
     // margin-right: auto can also be used here instead of justify-content: space-between on the parent div
+    padding-right: 2rem;
   }
 
   &__friends {
+    display: flex; // Use flexbox to align and keep photos in a single row
   }
 
   &__photo {
@@ -382,7 +495,7 @@
 
     // Make the photos overlap
     &:not(:last-child) {
-      margin-right: -1.5rem;
+      margin-right: -2rem;
     }
   }
 }
@@ -395,6 +508,27 @@
   margin-bottom: 3.5rem;
   position: relative; // For relative positioning of the before pseudo element
   overflow: hidden; // Hide the overflow of the pseudo element (before quotation mark)
+
+  // Use flexbox to set a width for the review container and make sure it's responsive
+  @media only screen and (max-width: base.$bp-medium) {
+    display: flex;
+    flex-direction: column;
+    flex: 1 0 40%; // Grow as much as possible to take up remaining space, no shrink, and with a basis of 40% width to keep both reviews on the same line
+    margin-bottom: 3rem; // Lower margin to match the rest of the design
+
+    &:first-child {
+      margin-right: 3rem; // Add a margin right to the first review now that the parent div is flex-direction: row
+    }
+  }
+
+  // Set width to 90% at small screen size for flex-direction: column
+  @media only screen and (max-width: base.$bp-small) {
+    width: calc(100% - 6rem); // Use calc to make the review divs 100% wide minus the width of the parent container padding
+
+    &:first-child {
+      margin-right: 0; // Remove margin right from the first review now that the parent div is flex-direction: column again
+    }
+  }
 
   &__text {
     margin-bottom: 2rem;
@@ -417,6 +551,7 @@
 
   &__user-box {
     margin-right: auto;
+    min-width: 8rem;
   }
 
   &__user-name {
@@ -435,6 +570,7 @@
     color: var(--color-primary);
     font-size: 2.2rem;
     font-weight: 300;
+    margin-left: 1.5rem;
   }
 
   &::before {
@@ -452,14 +588,23 @@
 
 // CTA
 .cta {
-  padding: 3.5rem 0;
+  padding: 3rem 0;
   text-align: center;
+
+  // Add padding to all sides starting at a small screen size
+  @media only screen and (max-width: base.$bp-small) {
+    padding: 3rem;
+  }
 
   &__book-now {
     font-size: 2rem;
     font-weight: 300;
     text-transform: uppercase;
     margin-bottom: 2.5rem;
+
+    @media only screen and (max-width: base.$bp-mobile-lg) {
+      font-size: 1.75rem;
+    }
   }
 }
 
